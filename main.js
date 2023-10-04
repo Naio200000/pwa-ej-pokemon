@@ -17,14 +17,21 @@ const getPokeFromName = (id) => {
 }
 const createModal = (pokemon) => {
     let {name, order, weight, stats, sprites} = pokemon
-    
-    return{
-        name,
-        order,
-        weight,
-        stats,
-        sprites
-    }
+    let titulo = document.querySelector('.modal-title')
+    let img = document.querySelector('.img')
+    let ul = document.querySelector('.statList')
+    ul.innerHTML = ''
+    stats.forEach((stat) =>{
+        let li = document.createElement('li')
+        li.innerHTML = `<li class="">${stat.stat.name}: <span>${stat.base_stat}</span></li>`
+        ul.appendChild(li)
+    })
+    let peso = document.querySelector('.pokePeso')
+    let orden = document.querySelector('.pokeOrden')
+    titulo.innerHTML = name
+    img.src = sprites.front_default
+    peso.innerHTML = weight
+    orden.innerHTML = order
 }
 const pokeCard = (name) => {
     return `
@@ -55,7 +62,7 @@ const createCards = async () => {
         poke.addEventListener('click', async (e) => {
             let btn = e.target
             let datos = await getPokeFromName(btn.id)
-            console.log(createModal(datos))
+            createModal(datos)
         })
     })
 }
