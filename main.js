@@ -10,6 +10,11 @@ const getPokes = () => {
             }
         }));
 }
+const getPokeFromName = (id) => {
+    return fetch (`https://pokeapi.co/api/v2/pokemon/${id}`)
+        .then(rta => rta.json())
+        .then((data) => console.log(data))
+}
 
 const pokeCard = (name) => {
     return `
@@ -39,7 +44,7 @@ const createCards = async () => {
     btnPokeDatos.forEach((poke) => {
         poke.addEventListener('click', (e) => {
             let btn = e.target
-            getPokefromname(btn.id)
+            getPokeFromName(btn.id)
         })
     })
 }
