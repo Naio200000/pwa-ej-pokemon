@@ -13,9 +13,19 @@ const getPokes = () => {
 const getPokeFromName = (id) => {
     return fetch (`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(rta => rta.json())
-        .then((data) => console.log(data))
+        //.then(data => console.log(data))
 }
-
+const createModal = (pokemon) => {
+    let {name, order, weight, stats, sprites} = pokemon
+    
+    return{
+        name,
+        order,
+        weight,
+        stats,
+        sprites
+    }
+}
 const pokeCard = (name) => {
     return `
             <div class="card my-2 mx-1 col-3">
@@ -42,9 +52,10 @@ const createCards = async () => {
     contenidoPoke.innerHTML = contenido
     const btnPokeDatos = document.querySelectorAll('.pokeDatos')
     btnPokeDatos.forEach((poke) => {
-        poke.addEventListener('click', (e) => {
+        poke.addEventListener('click', async (e) => {
             let btn = e.target
-            getPokeFromName(btn.id)
+            let datos = await getPokeFromName(btn.id)
+            console.log(createModal(datos))
         })
     })
 }
